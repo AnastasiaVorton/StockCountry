@@ -1,3 +1,11 @@
+<template>
+  <Header />
+  <main class="main">
+    <SideBar :tabs="tabs" />
+    <router-view></router-view>
+  </main>
+</template>
+
 <script lang="ts">
 import { defineComponent } from "vue";
 import Header from "./components/Header.vue";
@@ -39,14 +47,6 @@ export default defineComponent({
   },
 });
 </script>
-
-<template>
-  <Header />
-  <main class="main">
-    <SideBar :tabs="tabs" />
-    <router-view></router-view>
-  </main>
-</template>
 
 <style>
 #app {
