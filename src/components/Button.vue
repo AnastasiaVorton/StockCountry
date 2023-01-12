@@ -1,5 +1,5 @@
 <template>
-  <button class="button">
+  <button class="button" @click="$emit('buttonClick')">
     <span class="button-content">
       <slot />
     </span>
@@ -14,6 +14,7 @@
   background: var(--color-primary-blue2);
   color: var(--color-foreground3);
   font-family: inherit;
+  height: 32px;
 
   &:hover {
     background: var(--color-primary-blue3);

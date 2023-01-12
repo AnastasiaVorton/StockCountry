@@ -1,13 +1,23 @@
 <template>
   <div class="side-bar__container">
-    <div v-for="tab in tabs" class="side-bar__tab" @click="handleTabClick(tab)">
+    <div
+      v-for="(tab, index) in tabs"
+      :key="`tab-${tab.name}-${index}`"
+      class="side-bar__tab"
+      @click="handleTabClick(tab)"
+    >
       {{ tab.name }}
     </div>
   </div>
 </template>
-
+<!--TODO-->
+<!--active tab-->
+<!--tab icons-->
+<!--move to side?-->
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "SideBar",
   props: {
     tabs: {
@@ -19,7 +29,7 @@ export default {
       this.$router.push(link.routeLink);
     },
   },
-};
+});
 </script>
 
 <style scoped>
@@ -32,5 +42,6 @@ export default {
 .side-bar__tab {
   text-decoration: none;
   color: var(--color-foreground3);
+  cursor: pointer;
 }
 </style>
