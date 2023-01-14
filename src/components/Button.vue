@@ -12,6 +12,7 @@ import { defineComponent } from "vue";
 enum EButtonAppearance {
   PRIMARY = "primary",
   SECONDARY = "secondary",
+  OUTLINED = "outlined",
 }
 
 export default defineComponent({
@@ -78,6 +79,26 @@ export default defineComponent({
     background: var(--color-primary-gray2);
   }
 
+  &.outlined {
+    border: 1px solid var(--color-primary-gray1);
+    background-color: transparent;
+    padding: 9px 16px;
+    color: var(--color-text-dark-primary);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    border-radius: 8px;
+    height: 36px;
+  }
+
+  &.outlined:hover {
+    border-color: var(--color-primary-gray3);
+  }
+
+  &.outlined:active {
+    border-color: var(--color-foreground4);
+  }
+
   &:disabled {
     &.primary {
       background: var(--color-primary-purple1);
@@ -86,6 +107,11 @@ export default defineComponent({
     &.secondary {
       background: var(--color-primary-gray1);
       color: var(--color-text-primary-disabled);
+    }
+
+    &.outlined {
+      color: var(--color-text-dark-primary-disabled);
+      border-color: var(--color-primary-gray1);
     }
 
     cursor: not-allowed;
