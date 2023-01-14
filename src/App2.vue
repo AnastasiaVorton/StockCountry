@@ -14,7 +14,7 @@
     </p>
     <div class="isin__container">
       <TextField
-        placeholder="DE000BASF111"
+        placeholder="XXXXXXXXXXXX"
         v-model="isin"
         :maxlength="ISIN_LENGTH"
         id="isin_input"
@@ -206,7 +206,7 @@ export default defineComponent({
 }
 
 .isin__text-field {
-  width: 150px;
+  width: 100%;
 }
 
 .watch-list__container {
