@@ -9,8 +9,8 @@
     "test": "echo \n\nReplace this command with your own test runner.\n\n"
   },
   "dependencies": {
-    "vue": "^3.2.41",
-    "vue-router": "4"
+    "rxjs": "^7.8.0",
+    "vue": "^3.2.41"
   },
   "devDependencies": {
     "@types/node": "^18.11.5",

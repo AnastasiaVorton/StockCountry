@@ -1,8 +1,14 @@
 <template>
-  <Card>
-    <div>ISIN: {{ isin }}</div>
-    <div>Price: {{ price }}</div>
-    <Button @buttonClick="$emit('unsubscribe', isin)">Unsubscribe</Button>
+  <Card class="stock__container">
+    <div>
+      <div class="stock__isin">ISIN:</div>
+      {{ isin }}
+    </div>
+    <div>
+      <div class="stock__isin">Price:</div>
+      {{ price }}
+    </div>
+    <Button @buttonClick="$emit('unsubscribe', isin)" appearance="secondary">Unsubscribe</Button>
   </Card>
 </template>
 
@@ -24,4 +30,13 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.stock__container {
+  display: grid;
+  grid-template-columns: auto 50% auto;
+}
+
+.stock__isin {
+  color: var(--color-text-secondary);
+}
+</style>

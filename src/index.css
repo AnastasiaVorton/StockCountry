@@ -18,7 +18,7 @@
   --font-medium: DIN Next TR Medium, -apple-system, system-ui, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
   --font-bold: DIN Next TR Bold, -apple-system, system-ui, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 
-  --color-background1: black;
+  --color-background1: #121212;
   --color-background2: rgba(248, 250, 253, 0.1);
   --color-background3: rgba(248, 250, 253, 0.2);
   --color-background4: rgba(248, 250, 253, 0.28);
@@ -29,39 +29,29 @@
   --color-foreground3: white;
   --color-foreground4: black;
 
-  --color-primary-blue1: rgba(27, 164, 255, 0.5);
-  --color-primary-blue2: rgba(27, 164, 255, 0.8);
-  --color-primary-blue3: rgba(27, 164, 255, 0.85);
-  --color-primary-blue4: rgba(27, 164, 255, 0.9);
-  --color-secondary-blue1: rgba(27, 164, 255, 0.3);
-  --color-secondary-blue2: rgba(27, 164, 255, 0.35);
-  --color-secondary-blue3: rgba(27, 164, 255, 0.4);
+  --color-text-primary: rgba(255, 255, 255, 1);
+  --color-text-primary-disabled: rgba(255, 255, 255, 0.4);
+  --color-text-secondary: rgba(255, 255, 255, 0.6);
 
-  --color-primary-green1: rgba(19, 255, 128, 0.5);
-  --color-primary-green2: rgba(19, 255, 128, 0.8);
-  --color-primary-green3: rgba(19, 255, 128, 0.85);
-  --color-primary-green4: rgba(19, 255, 128, 0.9);
-  --color-secondary-green1: rgba(19, 255, 128, 0.3);
-  --color-secondary-green2: rgba(19, 255, 128, 0.35);
-  --color-secondary-green3: rgba(19, 255, 128, 0.4);
+  --color-text-dark-primary: #15151A;
 
-  --color-primary-red1: rgba(255, 78, 78, 0.5);
-  --color-primary-red2: rgba(255, 78, 78, 0.8);
-  --color-primary-red3: rgba(255, 78, 78, 0.85);
-  --color-primary-red4: rgba(255, 78, 78, 0.9);
-  --color-secondary-red1: rgba(255, 78, 78, 0.3);
-  --color-secondary-red2: rgba(255, 78, 78, 0.35);
-  --color-secondary-red3: rgba(255, 78, 78, 0.4);
+  --color-primary-purple1: rgba(187, 134, 252, 0.5);
+  --color-primary-purple2: rgba(187, 134, 252, 0.6);
+  --color-primary-purple3: rgba(187, 134, 252, 0.8);
+  --color-primary-purple4: rgba(187, 134, 252, 1);
+  --color-secondary-purple1: rgba(187, 134, 252, 0.3);
+  --color-secondary-purple2: rgba(187, 134, 252, 0.35);
+  --color-secondary-purple3: rgba(187, 134, 252, 0.4);
 
-  --color-primary-orange1: rgba(255, 177, 24, 0.5);
-  --color-primary-orange2: rgba(255, 177, 24, 0.8);
-  --color-primary-orange3: rgba(255, 177, 24, 0.85);
-  --color-primary-orange4: rgba(255, 177, 24, 0.9);
-  --color-secondary-orange1: rgba(255, 177, 24, 0.3);
-  --color-secondary-orange2: rgba(255, 177, 24, 0.35);
-  --color-secondary-orange3: rgba(255, 177, 24, 0.4);
+  --color-primary-gray1: rgba(92, 92, 92, 0.5);
+  --color-primary-gray2: rgba(92, 92, 92, 0.6);
+  --color-primary-gray3: rgba(92, 92, 92, 0.8);
+  --color-primary-gray4: rgba(92, 92, 92, 1);
+  --color-secondary-gray1: rgba(92, 92, 92, 0.3);
+  --color-secondary-gray2: rgba(92, 92, 92, 0.35);
+  --color-secondary-gray3: rgba(92, 92, 92, 0.4);
 
-  --max-width: 1200px;
+  --max-width: 640px;
 }
 
 html {
@@ -73,5 +63,17 @@ body {
   margin: 0;
   padding: 0;
   background: var(--color-background1);
-  color: var(--color-foreground3);
+  color: var(--color-text-primary);
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 47px;
+  line-height: 57px;
+  margin: 0 0 16px;
+}
+
+p {
+  margin: 0;
+  line-height: 24px;
 }
