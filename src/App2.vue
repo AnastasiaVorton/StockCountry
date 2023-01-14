@@ -20,6 +20,7 @@
         id="isin_input"
         label="ISIN"
         class="isin__text-field"
+        @keyup.enter="subscribe"
       ></TextField>
       <Button @buttonClick="subscribe" :disabled="!isISINValid">
         <svg
@@ -44,7 +45,6 @@
       <Button @buttonClick="closeWS" :disabled="!isISINValid">Close ws</Button>
     </div>
     <div class="watch-list__container">
-      <p>My watch list:</p>
       <Notification v-if="watchList.length && !isWebSocketConnected" class="space__vertical" status="warning">
         <div>
           The WebSocket from which we we receiving the data has been closed, so
@@ -200,7 +200,7 @@ export default defineComponent({
 
 .isin__container {
   display: flex;
-  gap: 12px;
+  gap: 32px;
   align-items: end;
   margin-top: 36px;
 }
@@ -210,7 +210,7 @@ export default defineComponent({
 }
 
 .watch-list__container {
-  margin-top: 32px;
+  margin: 44px 0;
 }
 
 .space__vertical {
