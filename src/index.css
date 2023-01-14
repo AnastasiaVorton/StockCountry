@@ -18,7 +18,7 @@
   --font-medium: DIN Next TR Medium, -apple-system, system-ui, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
   --font-bold: DIN Next TR Bold, -apple-system, system-ui, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
 
-  --color-background1: #121212;
+  --color-background1: rgba(18, 18, 18, 1);
   --color-background2: rgba(248, 250, 253, 0.1);
   --color-background3: rgba(248, 250, 253, 0.2);
   --color-background4: rgba(248, 250, 253, 0.28);
@@ -27,13 +27,14 @@
   --color-foreground1: rgba(248, 250, 253, 0.48);
   --color-foreground2: rgba(248, 250, 253, 0.56);
   --color-foreground3: white;
-  --color-foreground4: black;
+  --color-foreground4: rgba(21, 21, 26, 1);
 
   --color-text-primary: rgba(255, 255, 255, 1);
   --color-text-primary-disabled: rgba(255, 255, 255, 0.4);
   --color-text-secondary: rgba(255, 255, 255, 0.6);
 
-  --color-text-dark-primary: #15151A;
+  --color-text-dark-primary: rgba(21, 21, 26, 1);
+  --color-text-dark-primary-disabled: rgba(21, 21, 26, 0.5);
 
   --color-primary-purple1: rgba(187, 134, 252, 0.5);
   --color-primary-purple2: rgba(187, 134, 252, 0.6);
@@ -50,6 +51,16 @@
   --color-secondary-gray1: rgba(92, 92, 92, 0.3);
   --color-secondary-gray2: rgba(92, 92, 92, 0.35);
   --color-secondary-gray3: rgba(92, 92, 92, 0.4);
+
+  --color-primary-yellow1: rgba(255, 232, 172, 0.5);
+  --color-primary-yellow2: rgba(255, 232, 172, 0.6);
+  --color-primary-yellow3: rgba(255, 232, 172, 0.8);
+  --color-primary-yellow4: rgba(255, 232, 172, 1);
+  --color-secondary-yellow1: rgba(255, 232, 172, 0.3);
+  --color-secondary-yellow2: rgba(255, 232, 172, 0.35);
+  --color-secondary-yellow3: rgba(255, 232, 172, 0.4);
+
+  --color-info-fill: rgba(239, 246, 253, 1);
 
   --max-width: 640px;
 }
