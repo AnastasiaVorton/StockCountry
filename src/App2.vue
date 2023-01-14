@@ -45,7 +45,7 @@
     </div>
     <div class="watch-list__container">
       <p>My watch list:</p>
-      <Notification class="space__vertical" status="warning">
+      <Notification v-if="watchList.length && !isWebSocketConnected" class="space__vertical" status="warning">
         <div>
           The WebSocket from which we we receiving the data has been closed, so
           the numbers are not up to date now. Try refreshing the tab and if the
@@ -57,15 +57,17 @@
           </Button>
         </template>
       </Notification>
-      <Stock
-        v-for="(sub, index) in watchList"
-        :key="`subscription-${sub.isin}-${index}`"
-        :isin="sub.isin"
-        :price="sub.price"
-        @unsubscribe="unsubscribe"
-      >
-        {{ sub }}
-      </Stock>
+      <div class="watch-list__items">
+        <Stock
+          v-for="(sub, index) in watchList"
+          :key="`subscription-${sub.isin}-${index}`"
+          :isin="sub.isin"
+          :price="sub.price"
+          @unsubscribe="unsubscribe"
+        >
+          {{ sub }}
+        </Stock>
+      </div>
     </div>
   </main>
 </template>
@@ -151,7 +153,7 @@ export default defineComponent({
       this.connection?.close();
     },
     refreshPage() {
-      window.location.reload()
+      window.location.reload();
     },
   },
   created() {
@@ -242,5 +244,12 @@ export default defineComponent({
 
 .helper-text:not(:first-of-type) {
   margin-top: 12px;
+}
+
+.watch-list__items {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 </style>

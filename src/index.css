@@ -24,6 +24,7 @@
   --color-background4: rgba(248, 250, 253, 0.28);
   --color-background5: rgba(248, 250, 253, 0.36);
   --color-background6: rgba(248, 250, 253, 0.36);
+  --color-background7: rgba(41, 41, 41, 1);
   --color-foreground1: rgba(248, 250, 253, 0.48);
   --color-foreground2: rgba(248, 250, 253, 0.56);
   --color-foreground3: white;
@@ -32,6 +33,7 @@
   --color-text-primary: rgba(255, 255, 255, 1);
   --color-text-primary-disabled: rgba(255, 255, 255, 0.4);
   --color-text-secondary: rgba(255, 255, 255, 0.6);
+  --color-text-placeholder: rgba(160, 160, 160, 1);
 
   --color-text-dark-primary: rgba(21, 21, 26, 1);
   --color-text-dark-primary-disabled: rgba(21, 21, 26, 0.5);
@@ -62,7 +64,7 @@
 
   --color-info-fill: rgba(239, 246, 253, 1);
 
-  --max-width: 640px;
+  --max-width: 688px;
 }
 
 html {
