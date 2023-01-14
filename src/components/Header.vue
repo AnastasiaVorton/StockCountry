@@ -16,8 +16,8 @@
 
 <style lang="scss">
 .header {
-  margin: 0 auto;
-  padding: 24px 0;
+  margin: 162px auto 0;
+  padding: 0 24px;
   display: flex;
   max-width: var(--max-width);
 
@@ -27,6 +27,18 @@
 
   .header-logo {
     width: 60px;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .header {
+    margin: 16px auto 0;
+    padding: 0 0 12px;
+
+    .header-logo {
+      width: 60px;
+      margin-left: 16px;
+    }
   }
 }
 </style>
