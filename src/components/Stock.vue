@@ -72,7 +72,7 @@ export default defineComponent({
   padding: 12px;
   gap: 24px;
   background-color: var(--color-background7);
-  border-radius: 12px;
+  border-radius: var(--border-radius-m-2);
   justify-content: space-between;
   max-width: var(--max-width);
   min-width: 328px;
@@ -94,7 +94,7 @@ export default defineComponent({
 
 .stock__isin {
   color: var(--color-text-placeholder);
-  font-size: 14px;
+  font-size: var(--text-body-s);
   line-height: 17px;
   margin-bottom: 4px;
 }
@@ -103,7 +103,7 @@ export default defineComponent({
   width: 2px;
   height: 35px;
   background: var(--color-primary-gray1);
-  border-radius: 2px;
+  border-radius: var(--border-radius-xs);
 }
 
 .stock__button {

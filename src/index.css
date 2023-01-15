@@ -64,6 +64,20 @@
 
   --color-info-fill: rgba(239, 246, 253, 1);
 
+  --text-body-s: 14px;
+  --text_body-m: 16px;
+  --text_body-m-2: 18px;
+  --text_body-l: 24px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+
+  --border-radius-xs: 2px;
+  --border-radius-s: 8px;
+  --border-radius-m: 10px;
+  --border-radius-m-2: 12px;
+
   --max-width: 688px;
 }
 
@@ -80,7 +94,7 @@ body {
 }
 
 h1 {
-  font-weight: 600;
+  font-weight: var(--font-weight-semi-bold);
   font-size: 47px;
   line-height: 57px;
   margin: 0 0 16px;

@@ -34,7 +34,7 @@ export default {
 
 .text-field {
   padding: 12px 0;
-  font-size: 16px;
+  font-size: var(--text_body-m);
   line-height: 22px;
   border: none;
   border-bottom: 1px solid var(--color-primary-gray4);
@@ -44,8 +44,8 @@ export default {
   transition: 0.2s;
 
   &__label {
-    font-weight: 600;
-    font-size: 14px;
+    font-weight: var(--font-weight-semi-bold);
+    font-size: var(--text_body-s);
     line-height: 17px;
     margin-bottom: 4px;
   }

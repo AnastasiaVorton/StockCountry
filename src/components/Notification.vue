@@ -54,14 +54,14 @@ export default defineComponent({
 
 .notification__container {
   padding: 16px;
-  border-radius: 12px;
+  border-radius: var(--border-radius-m-2);
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
   gap: 8px;
-  font-size: 18px;
+  font-size: var(--text_body-m-2);
   line-height: 24px;
   background-color: var(--color-info-fill);
   color: var(--color-text-dark-primary);
@@ -74,7 +74,6 @@ export default defineComponent({
 
 .notification__content {
   display: flex;
-  flex-direction: row;
   align-items: flex-start;
   padding: 0;
   gap: 12px;

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 export enum EButtonAppearance {
   PRIMARY = "primary",
@@ -18,8 +18,12 @@ export enum EButtonAppearance {
 export default defineComponent({
   name: "Button",
   props: {
+    /**
+     * Appearance mode of the button
+     * @type EButtonAppearance
+     */
     appearance: {
-      type: String,
+      type: String as PropType<EButtonAppearance>,
       default: EButtonAppearance.PRIMARY,
     },
   },
@@ -37,7 +41,6 @@ export default defineComponent({
 
   .button-content {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -47,9 +50,9 @@ export default defineComponent({
     background: var(--color-primary-purple4);
     padding: 12px 28px 12px 20px;
     color: var(--color-text-dark-primary);
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 10px;
+    font-size: var(--text_body-m);
+    font-weight: var(--font-weight-semi-bold);
+    border-radius: var(--border-radius-m);
     height: 48px;
   }
 
@@ -65,9 +68,9 @@ export default defineComponent({
     background: var(--color-primary-gray4);
     padding: 10px 16px;
     color: var(--color-text-primary);
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 8px;
+    font-size: var(--text_body-s);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--border-radius-s);
     height: 40px;
   }
 
@@ -84,10 +87,10 @@ export default defineComponent({
     background-color: transparent;
     padding: 9px 16px;
     color: var(--color-text-dark-primary);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--text_body-s);
+    font-weight: var(--font-weight-medium);
     line-height: 18px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-s);
     height: 36px;
   }
 
@@ -122,7 +125,7 @@ export default defineComponent({
   .button {
     &.secondary {
       padding: 10px 12px;
-      font-weight: 400;
+      font-weight: var(--font-weight-regular);
       line-height: 16px;
       height: 36px;
     }
