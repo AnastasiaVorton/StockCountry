@@ -45,7 +45,6 @@
 
         Watch</Button
       >
-      <Button @buttonClick="closeWS">Close ws</Button>
     </div>
     <Notification
       v-if="!isWebSocketConnected"
@@ -78,7 +77,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onUnmounted } from "vue";
 import Header from "./components/Header.vue";
 import Input from "./components/Input.vue";
 import Button from "./components/Button.vue";
@@ -86,10 +85,8 @@ import Notification from "./components/Notification.vue";
 
 import "./index.css";
 import Stock from "./components/Stock.vue";
-import { useWebSocket } from "./composables/useWebSocketComposable";
-
-const ISIN_LENGTH = 12;
-const ISIN_REGEX = new RegExp(/[a-zA-Z]{2}[a-zA-Z0-9]{9}\d/);
+import { useISINWebSocket } from "./composables/useWebSocketComposable";
+import { ISIN_LENGTH, ISIN_REGEX } from "./utils";
 
 export default defineComponent({
   components: {
@@ -126,7 +123,9 @@ export default defineComponent({
       unsubscribeFromIsin,
       closeWS,
       isWebSocketConnected,
-    } = useWebSocket();
+    } = useISINWebSocket();
+
+    onUnmounted(() => closeWS());
 
     return {
       watchList,
@@ -137,13 +136,10 @@ export default defineComponent({
       isWebSocketConnected,
     };
   },
-  beforeDestroy() {
-    this.closeWS();
-  },
 });
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: var(--font-regular);
   -webkit-font-smoothing: antialiased;
@@ -154,22 +150,38 @@ export default defineComponent({
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 24px;
-}
 
-.isin__container {
-  display: flex;
-  gap: 32px;
-  align-items: end;
-  margin-top: 36px;
-}
+  .helper-text {
+    color: var(--color-text-secondary);
+  }
 
-.isin__text-field {
-  width: 100%;
-}
+  .helper-text:not(:first-of-type) {
+    margin-top: 12px;
+  }
 
-.space__vertical {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  .isin__container {
+    display: flex;
+    gap: 32px;
+    align-items: end;
+    margin-top: 36px;
+
+    .isin__text-field {
+      width: 100%;
+    }
+  }
+
+  .space__vertical {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .watch-list__items {
+    margin: 44px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -185,21 +197,5 @@ export default defineComponent({
   .isin__container {
     margin-top: 32px;
   }
-}
-
-.helper-text {
-  color: var(--color-text-secondary);
-}
-
-.helper-text:not(:first-of-type) {
-  margin-top: 12px;
-}
-
-.watch-list__items {
-  margin: 44px 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  flex-wrap: wrap;
 }
 </style>
