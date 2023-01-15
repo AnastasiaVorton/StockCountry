@@ -1,10 +1,10 @@
-import { webSocket } from "rxjs/webSocket";
+import {webSocket, WebSocketSubject} from "rxjs/webSocket";
 import { ref, reactive, Ref } from "vue";
 import { IStock } from "../types";
 
 interface IWebSocketComposable {
   watchList: Ref<IStock[]>;
-  webSocket: any;
+  webSocket: WebSocketSubject<any>;
   isWebSocketConnected: Ref<boolean>;
   subscribeToIsin(value: string): void;
   unsubscribeFromIsin(value: string): void;
@@ -12,7 +12,7 @@ interface IWebSocketComposable {
 }
 
 export function useWebSocket(): IWebSocketComposable {
-  const subject = webSocket("ws://localhost:8425/");
+  const subject: WebSocketSubject<any> = webSocket("ws://localhost:8425/");
   const watchList: Ref<IStock[]> = ref([]);
   const isWebSocketConnected = ref(true);
   const reactiveList = reactive(watchList);
@@ -35,7 +35,7 @@ export function useWebSocket(): IWebSocketComposable {
     reactiveList.value = watchList;
   };
 
-  const parseData = (value: IStock): IStock[] => {
+  const updateData = (value: IStock): IStock[] => {
     const stock = reactiveList.value.find((item) => item.isin === value.isin);
 
     if (stock) {
@@ -60,7 +60,7 @@ export function useWebSocket(): IWebSocketComposable {
   subject.subscribe({
     next: (event: any): void => {
       const webSocketResponse: IStock = { ...event };
-      reactiveList.value = parseData(webSocketResponse);
+      reactiveList.value = updateData(webSocketResponse);
     },
     error: (_event): void => {
       isWebSocketConnected.value = false;
