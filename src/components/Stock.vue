@@ -48,14 +48,6 @@ export default defineComponent({
 
     return { windowWidth, isMobile, onResize };
   },
-  mounted() {
-    this.$nextTick(() => {
-      window.addEventListener("resize", this.onResize);
-    });
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.onResize);
-  },
 });
 </script>
 

@@ -1,8 +1,9 @@
-import {webSocket, WebSocketSubject} from "rxjs/webSocket";
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { ref, reactive, Ref } from "vue";
 import { IStock } from "../types";
+import { WEB_SOCKET_URL } from "../utils";
 
-interface IWebSocketComposable {
+interface IISINWebSocketComposable {
   watchList: Ref<IStock[]>;
   webSocket: WebSocketSubject<any>;
   isWebSocketConnected: Ref<boolean>;
@@ -11,21 +12,43 @@ interface IWebSocketComposable {
   closeWS(): void;
 }
 
-export function useWebSocket(): IWebSocketComposable {
-  const subject: WebSocketSubject<any> = webSocket("ws://localhost:8425/");
+/**
+ * Composes the logic of communication with a WebSocket with ISIN data
+ */
+export function useISINWebSocket(): IISINWebSocketComposable {
+  /**
+   * WebSocket connection object
+   */
+  const subject: WebSocketSubject<any> = webSocket(WEB_SOCKET_URL);
+  /**
+   * List of stocks to which a user subscribed
+   */
   const watchList: Ref<IStock[]> = ref([]);
+  /**
+   * Indicator of a WebSocket connection activity
+   */
   const isWebSocketConnected = ref(true);
+  /**
+   * Reactive copy of watchList property
+   */
   const reactiveList = reactive(watchList);
 
+  /**
+   * Closes the connection with a WebSocket
+   */
   const closeWS = (): void => {
     subject.unsubscribe();
   };
 
+  /**
+   * Subscribes to a stock and adds it to users watch list
+   * @param {string} value - ISIN of a stock
+   */
   const subscribeToIsin = (value: string): void => {
     const watchList = reactiveList.value;
 
     if (watchList.some((item) => item.isin === value) || subject.closed) {
-      // todo alert that already subscribed
+      // todo alert that already subscribed – possible improvement
       return;
     }
 
@@ -35,6 +58,10 @@ export function useWebSocket(): IWebSocketComposable {
     reactiveList.value = watchList;
   };
 
+  /**
+   * Updates watch list data with data received from the WebSocket
+   * @param {IStock} value - message with stock data from WebSocket
+   */
   const updateData = (value: IStock): IStock[] => {
     const stock = reactiveList.value.find((item) => item.isin === value.isin);
 
@@ -45,6 +72,10 @@ export function useWebSocket(): IWebSocketComposable {
     return reactiveList.value;
   };
 
+  /**
+   * Unsubscribes from stock and removes it from users watch list
+   * @param {string} value - ISIN of a stock
+   */
   const unsubscribeFromIsin = (value: string): void => {
     const listEntryIndex = reactiveList.value.findIndex(
       (item) => item.isin === value
@@ -59,8 +90,7 @@ export function useWebSocket(): IWebSocketComposable {
 
   subject.subscribe({
     next: (event: any): void => {
-      const webSocketResponse: IStock = { ...event };
-      reactiveList.value = updateData(webSocketResponse);
+      reactiveList.value = updateData(event);
     },
     error: (_event): void => {
       isWebSocketConnected.value = false;
