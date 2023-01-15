@@ -189,9 +189,9 @@ You would then receive a WebSocket stream with messages in the following format
 1. What happens in case the WebSocket disconnects? How would you go further to keep
    the live data available or inform the user? Please discuss the challenges.
 
-2. What happens if a user adds an instrument multiple times to their list? Please discuss possible challenges and mitigations.
+3. What happens if a user adds an instrument multiple times to their list? Please discuss possible challenges and mitigations.
 
-3. What potential performance issues might you face when this app scales with multiple subscriptions? How would you improve the speed and user experience?
+4. What potential performance issues might you face when this app scales with multiple subscriptions? How would you improve the speed and user experience?
 
 ---
 
