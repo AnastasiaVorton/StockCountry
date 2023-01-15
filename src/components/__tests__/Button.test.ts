@@ -1,16 +1,16 @@
 import Button, { EButtonAppearance } from "../Button.vue";
 import { mount } from "@vue/test-utils";
-import { describe, test, expect } from "vitest/browser";
+import { test, expect, it } from "vitest/browser";
 
-describe("Button component tests", () => {
-  test("should mount default appearance", async () => {
+test("Button component tests", () => {
+  it("should mount default appearance", async () => {
     expect(Button).toBeTruthy();
 
     const wrapper = mount(Button);
     expect(wrapper.classes()).toContain(EButtonAppearance.PRIMARY);
   });
 
-  test("should mount appearance from prop", async () => {
+  it("should mount appearance from prop", async () => {
     expect(Button).toBeTruthy();
 
     const wrapper = mount(Button, {
@@ -21,7 +21,7 @@ describe("Button component tests", () => {
     expect(wrapper.classes()).toContain(EButtonAppearance.OUTLINED);
   });
 
-  test("should mount slot content", async () => {
+  it("should mount slot content", async () => {
     expect(Button).toBeTruthy();
 
     const buttonText = "Button text";
@@ -35,7 +35,7 @@ describe("Button component tests", () => {
     expect(wrapper.text()).toContain(buttonText);
   });
 
-  test("should emit custom event on click", async () => {
+  it("should emit custom event on click", async () => {
     expect(Button).toBeTruthy();
 
     const buttonText = "Button text";
