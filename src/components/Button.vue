@@ -9,7 +9,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-enum EButtonAppearance {
+export enum EButtonAppearance {
   PRIMARY = "primary",
   SECONDARY = "secondary",
   OUTLINED = "outlined",
