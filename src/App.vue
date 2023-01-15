@@ -22,7 +22,7 @@
         class="isin__text-field"
         @keyup.enter="subscribe"
       ></TextField>
-      <Button @buttonClick="subscribe" :disabled="!isISINValid">
+      <Button @buttonClick="subscribe" :disabled="!isISINValid || !isWebSocketConnected">
         <svg
           width="24"
           height="24"
@@ -42,14 +42,18 @@
 
         Watch</Button
       >
-      <Button @buttonClick="closeWS" :disabled="!isISINValid">Close ws</Button>
+      <Button @buttonClick="closeWS">Close ws</Button>
     </div>
     <div class="watch-list__container">
-      <Notification v-if="watchList.length && !isWebSocketConnected" class="space__vertical" status="warning">
+      <Notification
+        v-if="!isWebSocketConnected"
+        class="space__vertical"
+        status="warning"
+      >
         <div>
           The WebSocket from which we we receiving the data has been closed, so
-          the numbers are not up to date now. Try refreshing the tab and if the
-          problem persists contact our support
+          the data may not up to date now and you can't subscribe to new stocks.
+          Try refreshing the tab and if the problem persists contact our support
         </div>
         <template #button>
           <Button appearance="outlined" @buttonClick="refreshPage">
@@ -76,7 +80,6 @@
 import { defineComponent } from "vue";
 import Header from "./components/Header.vue";
 import TextField from "./components/TextField.vue";
-import Card from "./components/Notification.vue";
 import Button from "./components/Button.vue";
 import Notification from "./components/Notification.vue";
 
@@ -91,7 +94,6 @@ export default defineComponent({
   components: {
     Header,
     TextField,
-    Card,
     Button,
     Stock,
     Notification,
