@@ -1,8 +1,74 @@
 <template>
   <Header />
   <main class="main">
-    <SideBar :tabs="tabs" />
-    <router-view></router-view>
+    <h1 class="page_title">Search for assets</h1>
+    <p class="helper-text">
+      Welcome to the tiny stocks monitoring app!
+      <br />
+      Here you can search and subscribe to the updates of the stocks of your
+      interest.
+    </p>
+    <p class="helper-text">
+      The rules are simple: type an ISIN of an asset you want to add to your
+      watch list to the input below and press "Watch"
+    </p>
+    <div class="isin__container">
+      <TextField
+        placeholder="XXXXXXXXXXXX"
+        v-model="isin"
+        :maxlength="ISIN_LENGTH"
+        id="isin_input"
+        label="ISIN"
+        class="isin__text-field"
+        @keyup.enter="subscribe"
+      ></TextField>
+      <Button @buttonClick="subscribe" :disabled="!isISINValid">
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.45537 13.2548C6.4668 4.9156 17.533 4.9184 20.5446 13.2549C20.6853 13.6445 21.1152 13.8462 21.5048 13.7055C21.8944 13.5647 22.0961 13.1348 21.9554 12.7453C18.4671 3.08923 5.53324 3.08449 2.04455 12.7453C1.90386 13.1349 2.10563 13.5648 2.49522 13.7055C2.88481 13.8462 3.31469 13.6444 3.45537 13.2548Z"
+            fill="#121212"
+          />
+          <path
+            d="M12 17.0001C14.2092 17.0001 16 15.2092 16 13.0001C16 10.7909 14.2092 9.00006 12 9.00006C9.79088 9.00006 8.00002 10.7909 8.00002 13.0001C8.00002 15.2092 9.79088 17.0001 12 17.0001Z"
+            fill="#121212"
+          />
+        </svg>
+
+        Watch</Button
+      >
+      <Button @buttonClick="closeWS" :disabled="!isISINValid">Close ws</Button>
+    </div>
+    <div class="watch-list__container">
+      <Notification v-if="watchList.length && !isWebSocketConnected" class="space__vertical" status="warning">
+        <div>
+          The WebSocket from which we we receiving the data has been closed, so
+          the numbers are not up to date now. Try refreshing the tab and if the
+          problem persists contact our support
+        </div>
+        <template #button>
+          <Button appearance="outlined" @buttonClick="refreshPage">
+            Refresh
+          </Button>
+        </template>
+      </Notification>
+      <div class="watch-list__items">
+        <Stock
+          v-for="(sub, index) in watchList"
+          :key="`subscription-${sub.isin}-${index}`"
+          :isin="sub.isin"
+          :price="sub.price"
+          @unsubscribe="unsubscribeFromIsin"
+        >
+          {{ sub }}
+        </Stock>
+      </div>
+    </div>
   </main>
 </template>
 
@@ -10,40 +76,66 @@
 import { defineComponent } from "vue";
 import Header from "./components/Header.vue";
 import TextField from "./components/TextField.vue";
-import Card from "./components/Card.vue";
+import Card from "./components/Notification.vue";
 import Button from "./components/Button.vue";
-import SideBar from "./components/SideBar.vue";
-
-import Default from "./pages/Default.vue";
+import Notification from "./components/Notification.vue";
 
 import "./index.css";
-import { ERouterPaths } from "./routes";
+import Stock from "./components/Stock.vue";
+import { useWebSocket } from "./composables/useWebSocketComposable";
+
+const ISIN_LENGTH = 12;
+const ISIN_REGEX = new RegExp(/[a-zA-Z]{2}[a-zA-Z0-9]{9}\d/);
+
 export default defineComponent({
   components: {
     Header,
     TextField,
     Card,
     Button,
-    SideBar,
-    Default,
+    Stock,
+    Notification,
   },
   data() {
     return {
-      tabs: [
-        {
-          name: "Default",
-          routeLink: ERouterPaths.DEFAULT,
-        },
-        {
-          name: "Search assets",
-          routeLink: ERouterPaths.SEARCH,
-        },
-        {
-          name: "My assets",
-          routeLink: ERouterPaths.MY_ASSETS,
-        },
-      ],
+      ISIN_LENGTH,
+      isin: "",
     };
+  },
+  computed: {
+    isISINValid(): boolean {
+      return this.isin.length === ISIN_LENGTH && ISIN_REGEX.test(this.isin);
+    },
+  },
+  methods: {
+    subscribe() {
+      this.subscribeToIsin(this.isin);
+    },
+    refreshPage() {
+      window.location.reload();
+    },
+  },
+  setup() {
+    const {
+      watchList,
+      webSocket,
+      subscribeToIsin,
+      unsubscribeFromIsin,
+      closeWS,
+      isWebSocketConnected,
+    } = useWebSocket();
+
+    return {
+      watchList,
+      webSocket,
+      subscribeToIsin,
+      unsubscribeFromIsin,
+      closeWS,
+      isWebSocketConnected,
+    };
+  },
+  beforeDestroy() {
+    this.closeWS();
   },
 });
 </script>
@@ -58,5 +150,61 @@ export default defineComponent({
 .main {
   max-width: var(--max-width);
   margin: 0 auto;
+  padding: 0 24px;
+}
+
+.isin__container {
+  display: flex;
+  gap: 32px;
+  align-items: end;
+  margin-top: 36px;
+}
+
+.isin__text-field {
+  width: 100%;
+}
+
+.watch-list__container {
+  margin: 44px 0;
+}
+
+.space__vertical {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 640px) {
+  .watch-list__container {
+    display: grid;
+    gap: 8px;
+  }
+
+  .page_title {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .main {
+    padding: 0 16px;
+  }
+
+  .isin__container {
+    margin-top: 32px;
+  }
+}
+
+.helper-text {
+  color: var(--color-text-secondary);
+}
+
+.helper-text:not(:first-of-type) {
+  margin-top: 12px;
+}
+
+.watch-list__items {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 </style>
