@@ -1,18 +1,15 @@
 import Button, { EButtonAppearance } from "../Button.vue";
 import { mount } from "@vue/test-utils";
-import { test, expect, it } from "vitest/browser";
+import { test, expect } from "vitest/browser";
+import { describe } from "vitest";
 
-test("Button component tests", () => {
-  it("should mount default appearance", async () => {
-    expect(Button).toBeTruthy();
-
+describe("Button component tests", () => {
+  test("should mount default appearance", async () => {
     const wrapper = mount(Button);
     expect(wrapper.classes()).toContain(EButtonAppearance.PRIMARY);
   });
 
-  it("should mount appearance from prop", async () => {
-    expect(Button).toBeTruthy();
-
+  test("should mount appearance from prop", async () => {
     const wrapper = mount(Button, {
       props: {
         appearance: EButtonAppearance.OUTLINED,
@@ -21,9 +18,7 @@ test("Button component tests", () => {
     expect(wrapper.classes()).toContain(EButtonAppearance.OUTLINED);
   });
 
-  it("should mount slot content", async () => {
-    expect(Button).toBeTruthy();
-
+  test("should mount slot content", async () => {
     const buttonText = "Button text";
 
     const wrapper = mount(Button, {
@@ -35,9 +30,7 @@ test("Button component tests", () => {
     expect(wrapper.text()).toContain(buttonText);
   });
 
-  it("should emit custom event on click", async () => {
-    expect(Button).toBeTruthy();
-
+  test("should emit custom event on click", async () => {
     const buttonText = "Button text";
 
     const wrapper = mount(Button, {
@@ -46,9 +39,9 @@ test("Button component tests", () => {
       },
     });
 
-    await wrapper.get("button").trigger("click")
+    await wrapper.get("button").trigger("click");
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().buttonClick).toBeTruthy()
+    expect(wrapper.emitted().buttonClick).toBeTruthy();
   });
 });
