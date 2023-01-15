@@ -24,7 +24,7 @@ export function useWebSocket(): IWebSocketComposable {
   const subscribeToIsin = (value: string): void => {
     const watchList = reactiveList.value;
 
-    if (watchList.some((item) => item.isin === value)) {
+    if (watchList.some((item) => item.isin === value) || subject.closed) {
       // todo alert that already subscribed
       return;
     }
@@ -50,7 +50,7 @@ export function useWebSocket(): IWebSocketComposable {
       (item) => item.isin === value
     );
 
-    if (listEntryIndex !== -1) {
+    if (listEntryIndex !== -1 && !subject.closed) {
       subject.next({ unsubscribe: value });
 
       reactiveList.value.splice(listEntryIndex, 1);
