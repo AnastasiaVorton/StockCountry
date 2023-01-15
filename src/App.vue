@@ -13,7 +13,7 @@
       watch list to the input below and press "Watch"
     </p>
     <div class="isin__container">
-      <TextField
+      <Input
         placeholder="XXXXXXXXXXXX"
         v-model="isin"
         :maxlength="ISIN_LENGTH"
@@ -21,8 +21,11 @@
         label="ISIN"
         class="isin__text-field"
         @keyup.enter="subscribe"
-      ></TextField>
-      <Button @buttonClick="subscribe" :disabled="!isISINValid || !isWebSocketConnected">
+      ></Input>
+      <Button
+        @buttonClick="subscribe"
+        :disabled="!isISINValid || !isWebSocketConnected"
+      >
         <svg
           width="24"
           height="24"
@@ -44,34 +47,32 @@
       >
       <Button @buttonClick="closeWS">Close ws</Button>
     </div>
-    <div class="watch-list__container">
-      <Notification
-        v-if="!isWebSocketConnected"
-        class="space__vertical"
-        status="warning"
+    <Notification
+      v-if="!isWebSocketConnected"
+      class="space__vertical"
+      status="warning"
+    >
+      <p>
+        The WebSocket from which we we receiving the data has been closed, so
+        the data may not up to date now and you can't subscribe to new stocks.
+        Try refreshing the tab and if the problem persists contact our support
+      </p>
+      <template #button>
+        <Button appearance="outlined" @buttonClick="refreshPage">
+          Refresh
+        </Button>
+      </template>
+    </Notification>
+    <div class="watch-list__items">
+      <Stock
+        v-for="(sub, index) in watchList"
+        :key="`subscription-${sub.isin}-${index}`"
+        :isin="sub.isin"
+        :price="sub.price"
+        @unsubscribe="unsubscribeFromIsin"
       >
-        <div>
-          The WebSocket from which we we receiving the data has been closed, so
-          the data may not up to date now and you can't subscribe to new stocks.
-          Try refreshing the tab and if the problem persists contact our support
-        </div>
-        <template #button>
-          <Button appearance="outlined" @buttonClick="refreshPage">
-            Refresh
-          </Button>
-        </template>
-      </Notification>
-      <div class="watch-list__items">
-        <Stock
-          v-for="(sub, index) in watchList"
-          :key="`subscription-${sub.isin}-${index}`"
-          :isin="sub.isin"
-          :price="sub.price"
-          @unsubscribe="unsubscribeFromIsin"
-        >
-          {{ sub }}
-        </Stock>
-      </div>
+        {{ sub }}
+      </Stock>
     </div>
   </main>
 </template>
@@ -79,7 +80,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import Header from "./components/Header.vue";
-import TextField from "./components/TextField.vue";
+import Input from "./components/Input.vue";
 import Button from "./components/Button.vue";
 import Notification from "./components/Notification.vue";
 
@@ -93,7 +94,7 @@ const ISIN_REGEX = new RegExp(/[a-zA-Z]{2}[a-zA-Z0-9]{9}\d/);
 export default defineComponent({
   components: {
     Header,
-    TextField,
+    Input,
     Button,
     Stock,
     Notification,
@@ -166,23 +167,14 @@ export default defineComponent({
   width: 100%;
 }
 
-.watch-list__container {
-  margin: 44px 0;
-}
-
 .space__vertical {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
-@media only screen and (max-width: 640px) {
-  .watch-list__container {
-    display: grid;
-    gap: 8px;
-  }
-
+@media only screen and (max-width: 480px) {
   .page_title {
-    font-size: 24px;
+    font-size: var(--text_body-l);
     line-height: 29px;
   }
 
@@ -204,6 +196,7 @@ export default defineComponent({
 }
 
 .watch-list__items {
+  margin: 44px 0;
   display: flex;
   align-items: flex-start;
   gap: 12px;

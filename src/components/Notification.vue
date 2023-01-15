@@ -23,19 +23,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
 enum ENotificationStatus {
   INFO = "info",
-  ERROR = "error", // not implemented, but is a valid future improvement
+  ERROR = "error", // not implemented, but is a possible future improvement
   WARNING = "warning",
 }
 
+/**
+ * A component that displays inline notification with a type
+ * and does not interrupt user actions
+ */
 export default defineComponent({
   name: "Notification",
   props: {
+    /**
+     * The type of notification
+     * @type ENotificationStatus
+     */
     status: {
-      type: String,
+      type: String as PropType<ENotificationStatus>,
       default: ENotificationStatus.INFO,
     },
   },
@@ -66,21 +74,20 @@ export default defineComponent({
   background-color: var(--color-info-fill);
   color: var(--color-text-dark-primary);
 
+  .notification__content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    svg {
+      flex: none;
+      flex-grow: 0;
+    }
+  }
+
   &.warning {
     background-color: var(--color-primary-yellow4);
     color: var(--color-text-dark-primary);
-  }
-}
-
-.notification__content {
-  display: flex;
-  align-items: flex-start;
-  padding: 0;
-  gap: 12px;
-
-  svg {
-    flex: none;
-    flex-grow: 0;
   }
 }
 </style>

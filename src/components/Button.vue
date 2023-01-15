@@ -121,7 +121,7 @@ export default defineComponent({
   }
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 480px) {
   .button {
     &.secondary {
       padding: 10px 12px;

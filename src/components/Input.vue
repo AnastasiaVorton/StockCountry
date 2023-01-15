@@ -14,7 +14,7 @@
 
 <script lang="ts">
 export default {
-  name: "TextField",
+  name: "Input",
   props: {
     modelValue: String,
     emits: ["update:modelValue"],
