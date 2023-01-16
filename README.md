@@ -1,72 +1,20 @@
 # Frontend Coding Challenge
 
-Hello there, thanks again for your interest in Trade Republic. To kick off the
-interview process we have prepared a short coding exercise for you, to demonstrate your knowledge of the language and tools we use to develop our web applications.
+### submission by Anastasiia Repryntseva
 
-**Please note: The coding test should show that you feel comfortable working with any JavaScript framework. We use Vue.js and prefer it but you can use another framework if you feel that it will better show off your skills. The assessment of your submission will not change if you use a different framework.**
+## Setup instructions
 
-In case you have any questions, feel free to reach out to your dedicated recruiter.
+I used the provided project setup, so the steps to get the app up and running didn't change
 
-## Content
+```bash
+# npm
+npm install
 
-- [Intro & Context](#context)
-- [The Application](#the-application)
-- [Using this application](#using-this-application)
-- [The Challenge](#task-description)
-  - [Task 1](#task-1)
-  - [Task 2](#task-2)
-  - [Task 3](#task-3)
-- [Socket Reference](#socket-reference)
-- [Challenge Questions](#questions)
-- [Submit your solution](#how-to-submit-your-solution)
+# or yarn
+yarn install
+```
 
-## Context
-
-Developing our app, we work with a REST API as well as real-time streaming market
-data to display the latest stock prices with millisecond latency. You should feel
-comfortable developing an app to address these two types of network interaction. The WebSocket server you’ll be using accepts and emits messages in JSON format.
-
-## Things we care for:
-
-✅ Unit tests
-
-✅ Semantic HTML
-
-✅ Responsive Design
-
-✅ Documentation
-
-✅ Accessibility
-
-## Nice to have:
-
-🤩 Use of Reactive programming libraries like RxJS.
-
-### Glossary
-
-We don’t expect you to be a trading expert and some of the terms are quite specific to the space. Here’s some of the terms we use in the task:
-| Term | Definition |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `ISIN` | The 12-digit alphanumeric code that uniquely identifies a specific instrument |
-| `instrument` | A tradable asset, or a negotiable item, such as a security, commodity, derivative, or index, or any item that underlies a derivative. |
-| `bid` | The highest price a buyer will pay to buy a specified number of shares of an instrument at any given time. |
-| `ask` | The lowest price at which a seller will sell the instrument. |
-
----
-
-## The Application
-
-In the interest of saving you some time, we provided a working [Vue](https://vuejs.org) application. This application also includes a small set of components for you to use. Please note, using these components is optional, you are welcome to change them in any way you want, you should only submit something you are comfortable with.
-
-## Using this application
-
-### Pre-requisites
-
-Please make sure to have [Node](https://nodejs.org) 16 installed.
-
-### Running the code
-
-Once you have unzipped the folder and are ready to start, you can run `yarn` (or `npm install`) to install dependencies. After that, you can run:
+To run the app and access it by http://localhost:3000 run
 
 ```bash
 # npm
@@ -76,125 +24,138 @@ npm run dev
 yarn dev
 ```
 
-This will start the application in development mode. It will also start the WebSocket server on port 8425. 
-
-You can see the client application running in your browser by going to http://localhost:3000.
-
----
-
-## Task Description
-
-In this repository we have provided you with a minimal [Vue.js](https://vuejs.org) + [Vite](https://vitejs.dev) application. Your task is to extend this app so that it allows a user to subscribe/unsubscribe to a list of stocks. The user should be able to subscribe to a stock by entering its [ISIN](https://www.investopedia.com/terms/i/isin.asp) number into an input and then see the current price of the stock displayed in a list view.
-
-What we would like to see is clean, readable code that you would be **comfortable submitting to your colleagues for review**. Please explain decisions that you’ve made and what you would do if you had more time to continue development. You can add them to this `README.md` file.
-
-Requirements:
-
-- We want to see how you interpret [user stories](#user-stories) into a solution, please fulfill all of the stories provided.
-- Please avoid using a UI library, we want to be able to see your styling skills.
-- We recommend using Vue but you can use a different framework if you feel that you’ll be able to demonstrate your skills better.
-- Great user experience is important to us at Trade Republic. Please approach the challenge from a user’s perspective and build something you would be happy to put into user’s hands.
-- Please also provide setup instructions and answer the following [questions](#questions) in your README.
-
-## Tasks
-
-### Task 1
-
-Create a form that allows a user to submit an ISIN and add it to a watch list.
-
-#### User Stories
-
-> As a user, I should be able to submit an ISIN and it should be added to my watch list.
-
-> As a user, I should not be able to subscribe to the same ISIN twice so that I don’t get confused by seeing multiple versions of the same stock.
-
-> As a user, I should not be able to subscribe to an empty or invalid ISIN.
-
-> Validation rules: An ISIN is a 12-character alphanumeric code. It consists of three parts: A two letter country code, a nine character alpha-numeric national security identifier, and a single check digit.
-> Example:- US0378331005.
-
-### Task 2
-
-Create the UI and render the watch list created in the previous task to the DOM.
-
-#### User Stories
-
-> As a user, I should be able to view a list of my subscribed stocks displaying the latest stock price received from the WebSocket connection so that I can keep track of multiple stocks at the same time.
-
-> As a user, I should be able to unsubscribe from a stock that’s in my watch list so that I can focus on the stocks I’m interested in.
-
-> As a user, I should be notified if the websocket disconnects and the data is not up to date so that I know that the price is not accurate.
-
-> As a user, I should be able to view their stocks on desktop and mobile screen widths so that I am able to use the app on my mobile browser.
-
-### Task 3
-
-At this point, you can consider the challenge to be complete.
-
-This task is intentionally left open for you to add any feature you want to the application. Anything is valid, from improvements to Accessibility all the way to UI Transitions, CSS, etc.
-
----
-
-## Socket Reference
-
-The WebSocket server is started when you run `yarn dev`. You can then connect to it at
-
-```URL
-ws://localhost:8425/
-```
-
-To subcribe to a specific security
-
-```JSON
-{
-    "subscribe": "${ISIN}"
-}
-```
-
-To unsubscribe to a specific security
-
-```JSON
-{
-    "unsubscribe": "${ISIN}"
-}
-```
-
-#### Example Request
-
-To subscribe to the BASF instrument you would use
-
-```JSON
-{
-    "subscribe": "DE000BASF111"
-}
-```
-
-#### Sample Response
-
-You would then receive a WebSocket stream with messages in the following format
-
-```JSON
-{
-    "isin": "DE000BASF111",
-    "price": 11.316359370403822,
-    "bid": 11.306359370403822,
-    "ask": 11.326359370403821
-}
-```
-
----
-
-## Questions
+## Answers to questions
 
 1. What happens in case the WebSocket disconnects? How would you go further to keep
    the live data available or inform the user? Please discuss the challenges.
 
-3. What happens if a user adds an instrument multiple times to their list? Please discuss possible challenges and mitigations.
+```text
+In my app I watch the status of a WebSocket connection and if I detect that it's not connected
+any more, I display a notification which informs the user that the connection was terminated and
+that they are not able to subscribe to new stocks or see data updates of the ones they are already
+subscribed to.
+If I would take this case further I would implement a reconnection strategy. One way is to re-init
+a WebSocket by calling useISINWebSocket with some timeout in the complete callback and if the connection
+is established successfully we can automatically subscribe to all of the stocks in users watch list so
+that the disconnection can go almost unnoticed for them.
+The problem here can appear if we can't reconnect multiple times in a row, than we can properly notify the user
+about network troubles.
+```
 
-4. What potential performance issues might you face when this app scales with multiple subscriptions? How would you improve the speed and user experience?
+2. What happens if a user adds an instrument multiple times to their list? Please discuss possible challenges and mitigations.
 
----
+```text
+My current implementation prevents the user from subscribing to the same instrument more than one time. In my code I check
+the ISIN the user types and return if it's already on the list. But even if this logic was not implemented, as I can
+judge from the WebSocket behaviour, subscribing to the same ISIN multiple times does not produce duplicating events,
+so the performance would not be at stake, it would only be a problem on front-end and the user would see duplicate stocks
+in his list.
+```
 
-## How to submit your solution
+3. What potential performance issues might you face when this app scales with multiple subscriptions?
+   How would you improve the speed and user experience?
 
-Please zip your project and submit zip archive via the Greenhouse link attached to the email with the code challenge. Your dedicated recruiter will receive the notification about your submission and will send it for the team review.
+```text
+A straightforward problem that comes to my mind is the problem with rendering large amounts of rapidly changing data: this can happen if a user has so many subscriptions
+that the WebSocket server bombs the client with many events on which many reactive updates and re-renders must happen.
+One way to face this is to throttle the update rate of the view of the components, say once a second or two (here I would
+consult with PM's and business analysts on the acceptable update rate, since it might be crucial for real-time stocks monitoring).
+Another problem could appear if the data is not only rapidly updated but we also need to process a lot of data. In this challenge
+we only received 4 fields in one event, but if we get more data and we need to process it into complex data structures we might
+struggle with memory issues. Here comes efficient data structure design.
+Another way to solve data management and performance issues is with good UX. We could design the display of the data in such way
+that the user can see or subscribe to a limited amount of stocks only. In that way we can update and work only with the stocks
+that are visible to the user, and hide the rest of the data under pagination and hold the updates and data processing.
+```
+
+## Comments and thoughts
+
+Here I give some reasoning behind my decisions and explain features that I implemented.
+
+### Tests
+
+In my current project we use Jest for unit and integration tests, but here I decided to use Vitest, because
+it's an official recommended testing library maintained by the same team as Vue and Vite. It's fast and better optimised
+in combination with Vite. Moreover, the syntax and API is pretty much the same as Jest, so it was pretty convenient to use
+Vitest.
+
+I wrote unit tests for `useWebSocket` composable to test the main business logic of this app – connecting and operating with
+a WebSocket and processing the data from incoming events. To mock a WebSocket connection I used `mock-socket` library.
+After looking at other libraries this looked like the most concise way to mock a WebSocket. I included several positive
+and negative cases, but of course there could be more.
+
+In my opinion it's important to cover UI components with tests, so I wrote tests for the Button component since it's the
+most complex UI component in this app. The Button has many appearances, and I thought it was important to test that its
+public interface (props and slots) works correctly. In my experience it's very important to test that when a change is
+made in a UI component that is used widely across the whole project it does not break this component, because regressing
+it manually is a tough job. So such components as Buttons and Inputs are important candidates to be tested.
+
+**If I had more time to continue development**: I would cover more components with tests, probably separated some logic from
+App.vue into more atomic components and wrote some integrations tests. For example, ISIN subscription form's components
+(input + button) have logic which depend on one another and this can be tested as wel.
+
+### Components
+
+In the `components` folder there are both UI and business component. I would separate them and kept UI in one place
+(like a UI library) and business in another. In my case I have 3 UI components (Button, Input and Notification) and 2
+business components. Header just holds the icon of the app, but still it's not a reusable UI component, and you can't
+customize it, so it just holds a very simple specific business logic of displaying the logo. Stock card component is
+used to display relevant subscription data and perform actions with a subscription. If the app had many features I would
+place the components in the corresponding feature directories, but since the app is very simple I didn't want to
+overcomplicate the structure.
+
+**If I had more time to continue development**:
+
+1. I would add error state to the Input – it can be used to display validation if the user types in incorrect ISIN format
+   or an ISIN to which they already subscribed.
+2. Notification: more states could be implemented, such as error or success, but for this task I needed only warning,
+   so I omitted other states.
+3. Stock: I would add ask and bid display, currency display, but since we don't get the information about the currency
+   from the current interface of events I didn't assume any currency and just displayed a number. I also disable "Watch"
+   button when the connection to the WebSocket terminates, but last minute I understood that I forgot to disable "Unsubscribe"
+   button which can be misleading to the user, so is't a valid improvement :)
+
+### Composables
+
+As I've said in the [Tests](#tests) section `useWebSocket` composable contains the main business logic of this app.
+It provides the means to connect and close the connection to the WebSocket, subscribe to and unsubscribe from an ISIN,
+process the event from the socket and form them in a data structure which can be then used to display the data to the user.
+I used a WebSocket subject from rxjs.
+
+`useScreenWidth` composable was first defined in Stock component, but then I thought that it is a logic that
+can be reused across different features, so I decided to make it into a composable.
+
+### Utils
+
+I like to keep global constants in a separate place, so I created a file for them. Utils is a module that can store
+many more useful things such as helpers or configs.
+
+### App.vue
+
+App.vue is the heart of my application. Everything unites and happens here. Since the app has a very small set of
+features I did not create any pages or navigation and decided to keep it simple and just put everything in this file.
+It's not very cluttered since in uses components and composables with isolated logic.
+
+### Styling
+
+I added my own css variables to [index.css](./src/index.css). Those include colors I used (I followed the system
+you provided by defining variations of color by changing the alpha-channel), font constants and some other values
+I reused multiple times and that I thought can be used as theme values. So it's very simple to change a "theme" of the app
+by just changing the variables. I made two views of the application: mobile (screen width 480 px and less) and desktop
+(everything else). If I had more time I would do a tablet view as well.
+
+### Extra
+
+I added eslint and prettier packages to the project because I think that consistent code style and automated linting
+rules! I can't imagine working in a team and not having a linter on pre-commit, and I know the pain of linting a
+big project from scratch, so it's better to have it from the beginning. I ran my linter manually, but if I had more time
+I would add a pre-commit hook to do this all automatically.
+
+I used git to version control my project.
+
+I currently work with Vue 2 + Webpack, so it was very exciting to do a project on Vue 3 + Vite setup. I've read and
+heard many positive reviews about Vue 3 features and Vite as a lightning fast bundler, so it was super fun. At work, we
+currently prepare our project for the migration to Vue 3, so I've got a sneak peek on the new features that I was so eager
+to try.
+
+Thank you for an interesting challenge and hope to hear from you soon!
