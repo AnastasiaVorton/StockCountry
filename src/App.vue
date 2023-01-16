@@ -167,6 +167,7 @@ export default defineComponent({
 
     .isin__text-field {
       width: 100%;
+      min-width: 170px;
     }
   }
 
