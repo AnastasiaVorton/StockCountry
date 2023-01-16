@@ -1,4 +1,4 @@
-import { useISINWebSocket } from "../useWebSocketComposable";
+import { useISINWebSocket } from "../useISINWebSocket";
 import { beforeEach, it, expect, describe } from "vitest";
 import { Server } from "mock-socket";
 import { WEB_SOCKET_URL } from "../../utils";

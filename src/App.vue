@@ -85,7 +85,7 @@ import Notification from "./components/Notification.vue";
 
 import "./index.css";
 import Stock from "./components/Stock.vue";
-import { useISINWebSocket } from "./composables/useWebSocketComposable";
+import { useISINWebSocket } from "./composables/useISINWebSocket";
 import { ISIN_LENGTH, ISIN_REGEX } from "./utils";
 
 export default defineComponent({
