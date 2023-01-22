@@ -1,6 +1,4 @@
-# Frontend Coding Challenge
-
-### submission by Anastasiia Repryntseva
+# Stocks monitoring app
 
 ## Setup instructions
 
@@ -157,5 +155,3 @@ I currently work with Vue 2 + Webpack, so it was very exciting to do a project o
 heard many positive reviews about Vue 3 features and Vite as a lightning fast bundler, so it was super fun. At work, we
 currently prepare our project for the migration to Vue 3, so I've got a sneak peek on the new features that I was so eager
 to try.
-
-Thank you for an interesting challenge and hope to hear from you soon!
